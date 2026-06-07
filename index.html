@@ -466,6 +466,31 @@ const userType = urlParams.get("tester") === "true"
 ? "tester"
 : "real_user";
 
+    /* PIN PROTECTION */
+
+window.checkPin = function(){
+
+const pin =
+document.getElementById("pinInput").value;
+
+/* CHANGE YOUR PIN HERE */
+
+const correctPin = "4032239";
+
+if(pin === correctPin){
+
+document.getElementById("lockScreen")
+.style.display = "none";
+
+}
+else{
+
+document.getElementById("errorMsg")
+.style.display = "block";
+
+}
+}
+    
 /* QUESTIONS */
 
 const questions = {
