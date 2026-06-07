@@ -1,0 +1,730 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Reena 🌸</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:linear-gradient(180deg,#ffd9ea,#fff1f7);
+    overflow-x:hidden;
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:#444;
+}
+
+.floating{
+    position:fixed;
+    font-size:24px;
+    animation:float 12s linear infinite;
+    opacity:0.7;
+    z-index:0;
+    pointer-events:none;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh);
+    }
+    to{
+        transform:translateY(-120vh);
+    }
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.card{
+    width:100%;
+    max-width:850px;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(12px);
+    border-radius:28px;
+    padding:40px;
+    box-shadow:0 15px 50px rgba(255,105,180,0.2);
+    text-align:center;
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.step{
+    display:none;
+    animation:slide 0.7s ease;
+}
+
+.step.active{
+    display:block;
+}
+
+@keyframes slide{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    color:#ff4f8b;
+    margin-bottom:20px;
+    font-size:2.2rem;
+}
+
+.question{
+    font-size:1.25rem;
+    line-height:1.9;
+    margin-top:20px;
+}
+
+.emoji{
+    font-size:4rem;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    position:relative;
+    min-height:70px;
+}
+
+button{
+    border:none;
+    background:#ff6b9e;
+    color:white;
+    padding:14px 24px;
+    border-radius:15px;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.no-btn{
+    background:#888;
+    position:relative;
+}
+
+.story{
+    text-align:left;
+    margin-top:20px;
+    line-height:2;
+    font-size:1.05rem;
+}
+
+.story-box{
+    background:#fff4f8;
+    padding:22px;
+    border-radius:18px;
+    margin:22px 0;
+    border-left:5px solid #ff7aa8;
+    animation:fadeBox 1s ease;
+}
+
+@keyframes fadeBox{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.highlight{
+    color:#ff4f8b;
+    font-weight:bold;
+}
+
+.final-title{
+    text-align:center;
+    font-size:2rem;
+    margin-bottom:25px;
+    color:#ff4f8b;
+}
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#ff8db3;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#ffe6f0;
+}
+
+input{
+    outline:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PIN SCREEN -->
+
+<div id="lockScreen" style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(180deg,#ffd9ea,#fff1f7);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
+
+<div style="
+background:white;
+padding:40px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 10px 40px rgba(0,0,0,0.1);
+width:90%;
+max-width:400px;
+">
+
+<h2 style="color:#ff4f8b;">
+Secret Access Required 🔐
+</h2>
+
+<p style="margin-top:15px;">
+Enter the PIN 😄
+</p>
+
+<input
+type="password"
+id="pinInput"
+placeholder="Enter PIN"
+style="
+margin-top:20px;
+padding:12px;
+width:100%;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:1rem;
+text-align:center;
+"
+/>
+
+<button
+onclick="checkPin()"
+style="
+margin-top:20px;
+width:100%;
+padding:12px;
+border:none;
+background:#ff6b9e;
+color:white;
+border-radius:12px;
+font-size:1rem;
+cursor:pointer;
+">
+Unlock 🌸
+</button>
+
+<p id="errorMsg"
+style="
+margin-top:15px;
+color:red;
+display:none;
+">
+Access denied by emotional firewall 😂
+</p>
+
+</div>
+
+</div>
+
+<!-- FLOATING EMOJIS -->
+
+<div class="floating" style="left:5%; animation-delay:0s;">🌸</div>
+<div class="floating" style="left:15%; animation-delay:2s;">😄</div>
+<div class="floating" style="left:25%; animation-delay:4s;">😄</div>
+<div class="floating" style="left:40%; animation-delay:1s;">✨</div>
+<div class="floating" style="left:60%; animation-delay:3s;">🌷</div>
+<div class="floating" style="left:75%; animation-delay:5s;">😊</div>
+<div class="floating" style="left:90%; animation-delay:2s;">🫠</div>
+
+<div class="container">
+
+<div class="card">
+
+<!-- STEP 1 -->
+
+<div class="step active" id="step1">
+
+<div class="emoji">🧐</div>
+
+<h1>
+Tiny Investigation 🌸
+</h1>
+
+<div class="question">
+Hey Reena 😄<br><br>
+
+Before proceeding further,<br>
+a few important questions are required for investigation purposes 😂
+</div>
+
+<div class="buttons">
+
+<button onclick="nextStep(2)">
+Proceed 😄
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 2 -->
+
+<div class="step" id="step2">
+
+<div class="emoji">😄</div>
+
+<div class="question">
+Do you know that your presence somehow started affecting my daily mood metrics? 📈😶
+</div>
+
+<div class="buttons">
+
+<button onclick="saveAnswer(1,'yes')">
+Maybe yes 😊
+</button>
+
+<button class="no-btn" id="run1"
+onclick="firstNoClick(1)">
+No 😤
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div class="step" id="step3">
+
+<div class="emoji">😊</div>
+
+<div class="question">
+Do you know that I feel happy helping you out? 😅
+</div>
+
+<div class="buttons">
+
+<button onclick="saveAnswer(2,'yes')">
+Aww maybe 😄
+</button>
+
+<button class="no-btn" id="run2"
+onclick="firstNoClick(2)">
+No 😤
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 4 -->
+
+<div class="step" id="step4">
+
+<div class="emoji">💬</div>
+
+<div class="question">
+Okay... enough suspense 😂<br><br>
+
+I think my brain storage is completely full with thoughts now 😅
+</div>
+
+<div class="buttons">
+
+<button onclick="showStory()">
+Open Full Message 🌸
+</button>
+
+</div>
+
+</div>
+
+<!-- STORY -->
+
+<div class="step" id="storyStep">
+
+<div class="story">
+
+<div class="final-title">
+For Reena 🌸
+</div>
+
+<div class="story-box">
+Firstly I hope and believe that you feel the same way that i feel, that's the reason why I am sending the following big messages, if in case you don't feel the same as me, or if it weird, irrelevant and uncomfortable to you, I truly apologise, with a linence of being my good friend, I am telling all these.
+</div>
+
+<div class="story-box">
+I didn't want to give these many things at this speed, but I don't want you or me to suddenly disappear with these many thoughts in my head....
+</div>
+
+<div class="story-box">
+Again I will be really sorry if you feel weird or don't match my vibe in this context and for my big lines, but I am daring to tell all these things, as my memory has filled up with these many thoughts 💬 and they are bursting up now😅
+</div>
+
+<div class="story-box">
+I started enjoying your presence a lot and it feels very good to be around you and talking to you.
+
+<br><br>
+
+Full of dopamine rush in these days, I think that's because of you.
+
+<br><br>
+
+So, deep down I feel that I like you, and would definitely like to spend some time with you to understand more if possible.
+
+<br><br>
+
+And I would really like to know how you feel...😅
+</div>
+
+<div class="story-box">
+I don't know why I got these weird thoughts, I never expected that I would ask for these things anywhere in the near past.
+
+<br><br>
+
+It's really weird and don't know why I got these weird thoughts 🤣😅, just look 👇
+
+<br><br>
+
+1. Felt like tyiing your shoe laces 😅and still feel it.
+
+<br><br>
+
+2. One picture with you, don't forget to click one within this couple of days.
+
+<br><br>
+
+3. And buy you something...
+
+<br><br>
+
+4. Cook something though I do not know how to...
+</div>
+
+<div class="story-box">
+So I genuinely feel to help you out in anything. And I don't why I got that sudden urge to solve your problems 😅
+
+<br><br>
+
+Would definitely like to show up for you and be there 😊 and I really feeling happy while I am helping you out. Would definitely be there for you going forward if the way you feel about me coincidence with mine.
+</div>
+
+<div class="story-box">
+So I am interested in you and I like you, if you feel the same way, would definitely want to spend some more time with you and understand you more, I won't call it as date but a bit higher than that, as I think I know you a bit more😊.
+</div>
+
+<div class="story-box">
+I thank this universe for your existence 😂
+
+<br><br>
+
+( it looks I am hyping much about you, but I really, genuinely felt happy, and so peaceful looking at you, i don't know why but I just want to see you , look at you, keep on staring at you😅)
+
+<br><br>
+
+It was amazing to sit infront of you.
+</div>
+
+<div class="story-box">
+I definitely will miss all this things Reena.
+
+<br><br>
+
+If you feel the same way, I'd like to keep meeting you to see you, to know how you're doing and all😅
+</div>
+
+<div class="story-box highlight">
+So if you don't feel the same way as me, please forgive me for this big text😂🙏
+
+<br><br>
+
+Eagerly waiting to hear how you are feeling and for your response 😂
+</div>
+
+<div class="buttons">
+
+<button onclick="finalMessage()">
+Send Cute Response 😄
+</button>
+
+<button class="no-btn" id="run4">
+Ignore 😤
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBq0F8ZoN9TSyf5VUj8D3AuVqTk6SGO9Go",
+  authDomain: "my-site-edcc1.firebaseapp.com",
+  projectId: "my-site-edcc1",
+  storageBucket: "my-site-edcc1.firebasestorage.app",
+  messagingSenderId: "726019442006",
+  appId: "1:726019442006:web:f37744950f6d554a0f82f7"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+/* TESTER OR REAL USER */
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const userType = urlParams.get("tester") === "true"
+? "tester"
+: "real_user";
+
+/* PIN PROTECTION */
+
+window.checkPin = function(){
+
+const pin =
+document.getElementById("pinInput").value;
+
+/* CHANGE YOUR PIN HERE */
+
+const correctPin = "4032239";
+
+if(pin === correctPin){
+
+document.getElementById("lockScreen")
+.style.display = "none";
+
+}
+else{
+
+document.getElementById("errorMsg")
+.style.display = "block";
+
+}
+}
+
+/* QUESTIONS */
+
+const questions = {
+
+1: "Do you know that your presence somehow started affecting my daily mood metrics?",
+
+2: "Do you know that I feel happy helping you out?"
+};
+
+/* SAVE ANSWERS */
+
+window.saveAnswer = async function(questionNumber,answer){
+
+await addDoc(collection(db,"responses"),{
+
+userType:userType,
+
+questionNumber:questionNumber,
+
+question:questions[questionNumber],
+
+answer:answer,
+
+timestamp:new Date().toISOString(),
+
+userAgent:navigator.userAgent
+});
+
+nextStep(questionNumber + 2);
+}
+
+/* FIRST NO CLICK */
+
+window.firstNoClick = async function(questionNumber){
+
+await addDoc(collection(db,"responses"),{
+
+userType:userType,
+
+questionNumber:questionNumber,
+
+question:questions[questionNumber],
+
+answer:"no",
+
+timestamp:new Date().toISOString(),
+
+userAgent:navigator.userAgent
+});
+
+const btn =
+document.getElementById("run"+questionNumber);
+
+btn.onclick = null;
+
+btn.addEventListener("mouseover",()=>{
+
+btn.style.position="absolute";
+
+btn.style.top=Math.random()*80+"%";
+
+btn.style.left=Math.random()*70+"%";
+});
+
+alert("😂 Nice try");
+}
+
+/* NEXT STEP */
+
+window.nextStep = function(next){
+
+document.querySelectorAll(".step")
+.forEach(step=>{
+step.classList.remove("active");
+});
+
+document.getElementById("step"+next)
+.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+}
+
+/* SHOW STORY */
+
+window.showStory = async function(){
+
+await addDoc(collection(db,"responses"),{
+
+userType:userType,
+
+storyOpened:true,
+
+timestamp:new Date().toISOString(),
+
+userAgent:navigator.userAgent
+});
+
+document.querySelectorAll(".step")
+.forEach(step=>{
+step.classList.remove("active");
+});
+
+document.getElementById("storyStep")
+.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+}
+
+/* FINAL MESSAGE */
+
+window.finalMessage = async function(){
+
+await addDoc(collection(db,"responses"),{
+
+userType:userType,
+
+finalButtonClicked:true,
+
+timestamp:new Date().toISOString(),
+
+userAgent:navigator.userAgent
+});
+
+alert(
+`🌸 Thank you for reading everything 😄
+
+No pressure at all 😊
+
+I just wanted to tell everything honestly once instead of keeping all these thoughts forever 😂`
+);
+}
+
+/* FINAL RUNAWAY BUTTON */
+
+const finalRun =
+document.getElementById("run4");
+
+finalRun.addEventListener("mouseover",()=>{
+
+finalRun.style.position="absolute";
+
+finalRun.style.top=Math.random()*80+"%";
+
+finalRun.style.left=Math.random()*70+"%";
+});
+
+</script>
+
+</body>
+</html>
+```
